@@ -16,7 +16,7 @@ NIVEAU = {"Beginner-Intermediate":"Beginner tot gemiddeld","Intermediate-Advance
 VERTAAL = {"wood":"hout","metal":"metaal","carbon":"carbon","fiberglass":"glasvezel","basalt":"basalt","flax":"vlas","foam":"schuim",
   "partial twin tip":"half-twintip","full twin tip":"twintip","twin tip":"twintip","flat tail":"vlakke staart","flat":"vlakke staart",
   "rocker/camber/rocker":"rocker – camber – rocker","tip & tail rocker":"rocker in tip en staart, camber in het midden",
-  "rocker/camber":"rocker voor, camber achter","tip rocker":"rocker in de tip, camber eronder","camber":"camber","full rocker":"volledige rocker","all mountain rocker":"lichte rocker in de tip, camber eronder","early rise":"lichte rocker in de tip, camber eronder","rocker/flat/rocker":"rocker – vlak – rocker","flat":"vlak","hybrid camber":"camber met rocker in tip en staart"}
+  "rocker/camber":"rocker voor, camber achter","tip rocker":"rocker in de tip, camber eronder","camber":"camber","full rocker":"volledige rocker","all mountain rocker":"lichte rocker in de tip, camber eronder","early rise":"lichte rocker in de tip, camber eronder","rocker/flat/rocker":"rocker – vlak – rocker","flat":"vlak","hybrid camber":"camber met rocker in tip en staart","freestyle rocker":"rocker in tip en staart (freestyle)","directional rocker":"rocker in de tip, camber eronder"}
 def nl(v):
     if not v: return None
     v = v.split(":")[0].strip()
