@@ -1,14 +1,32 @@
-{% extends "base.html" %}{% block inhoud %}
+{% extends "base.html" %}
+{% block meta %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Product","name":s.naam,"brand":{"@type":"Brand","name":s.merk},"category":"Ski's","description":(s.review.kort if s.review else s.auto)}|tojson_nl|safe }}</script>{% endblock %}
+{% block inhoud %}
 <nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › <a href="{{ BASE }}/{{ s.merk_slug }}/">{{ s.merk }}</a> › {{ s.model }}</nav>
-<h1>{{ s.naam }} <span class="meta">({{ s.seizoen }})</span></h1>
-<p><span class="tag">Allmountain</span><span class="tag">{{ s.niveau_nl }}</span>{% if s.geslacht=='dames' %}<span class="tag">Dames</span>{% endif %}</p>
-<div class="grid"><div class="kaart"><h2 style="margin-top:0">Onze beoordeling</h2>
-{% for k,label,v in s.scores %}<div class="as"><span>{{ label }}</span><div class="bar"><i style="width:{{ (v or 0)*10 }}%"></i></div><b>{{ v }}</b></div>{% endfor %}
-<p class="meta">Scoremodel {{ s.versie }} · <a href="{{ BASE }}/methode/">uitleg</a></p></div>
-<div class="kaart"><h2 style="margin-top:0">Kenmerken</h2>
-<p><b>Profiel:</b> {{ s.profiel_nl or '–' }}<br><b>Constructie:</b> {{ s.constructie_nl or '–' }}<br><b>Staart:</b> {{ s.tail_type_nl or '–' }}</p>
-<h3>Prijzen</h3><p class="meta">Hier komen straks prijzen van meerdere winkels (via Awin, Daisycon en TradeTracker).</p><span class="knop uit">Bekijk prijzen</span></div></div>
-<h2>Specificaties per lengte</h2>
-<table><tr><th>Lengte</th><th>Tip</th><th>Taille</th><th>Tail</th><th>Radius</th><th>Gewicht (per ski)</th></tr>
-{% for l in s.lengtes %}<tr><td>{{ l.lengte }} cm</td><td>{{ l.tip or '–' }} mm</td><td>{{ l.taille or '–' }} mm</td><td>{{ l.tail or '–' }} mm</td><td>{{ l.radius or '–' }} m</td><td>{% if l.gewicht %}{{ l.gewicht }} g{% else %}–{% endif %}</td></tr>{% endfor %}</table>
+<span class="label">{{ CAT[s.categorie][0] if s.categorie in CAT else s.categorie }} · seizoen {{ s.seizoen }}</span>
+<h1>{{ s.naam }}</h1>
+<p class="lead">{% if s.review %}{{ s.review.kort }}{% else %}{{ s.auto }}{% endif %}</p>
+<p><span class="chip">{{ s.niveau_nl }}</span><span class="chip">{{ s.taille }} mm onder de voet</span>{% if s.geslacht=='dames' %}<span class="chip">Damesmodel</span>{% endif %}{% if s.constructie_nl %}<span class="chip">{{ s.constructie_nl }}</span>{% endif %}</p>
+{{ s.svg|safe }}
+<div class="twee" style="margin-top:24px">
+<section class="blok"><h2 style="margin-top:0">Onze scores</h2>
+{% for k,label,v,w in s.scores %}<div class="as"><span>{{ label }}</span><div class="bar"><i style="width:{{ v*10 }}%"></i></div><b>{{ v }}/10<small> · {{ w }}</small></b></div>{% endfor %}
+<p class="bron">Vergeleken met alle {{ (CAT[s.categorie][0] if s.categorie in CAT else '')|lower }}-ski's van {{ s.seizoen }}. <a href="{{ BASE }}/methode/">Hoe we scoren</a></p></section>
+<section class="blok"><h2 style="margin-top:0">Kopen</h2>
+<p>Binnenkort zie je hier de actuele prijs bij verschillende winkels.</p><span class="knop uit">Bekijk prijzen</span>
+<h3 style="margin-top:22px">Kenmerken</h3>
+<p style="font-size:15px"><b>Profiel:</b> {{ s.profiel_nl or '–' }}<br><b>Constructie:</b> {{ s.constructie_nl or '–' }}<br><b>Staart:</b> {{ s.tail_type_nl or '–' }}<br><b>Lengtes:</b> {{ s.lengtes|map(attribute='lengte')|join(', ') }} cm</p></section>
+</div>
+{% if s.review %}
+<h2>Onze review</h2><div class="verhaal">{% for p in s.review.verhaal %}<p>{{ p }}</p>{% endfor %}</div>
+<div class="twee"><div><h3>Sterk</h3><ul class="plus">{% for x in s.review.goed %}<li>{{ x }}</li>{% endfor %}</ul></div>
+<div><h3>Minder sterk</h3><ul class="min">{% for x in s.review.minder %}<li>{{ x }}</li>{% endfor %}</ul></div></div>
+<h3 style="margin-top:24px">Voor wie?</h3><p>{{ s.review.voorwie }}</p>
+<p class="bron">Voor deze review namen we mee: {{ s.review.bronnen|join(', ') }}.</p>
+{% else %}
+<div class="blok" style="margin-top:28px"><b>Uitgebreide review volgt.</b> We verzamelen de internationale tests voor deze ski. Tot die tijd is het oordeel hierboven gebaseerd op de specificaties.</div>
+{% endif %}
+<h2>Specificaties per lengte</h2><div class="tabel"><table><tr><th>Lengte</th><th>Tip</th><th>Taille</th><th>Tail</th><th>Draaistraal</th><th>Gewicht per ski</th></tr>
+{% for l in s.lengtes %}<tr><td><b>{{ l.lengte }} cm</b></td><td>{{ l.tip or '–' }} mm</td><td>{{ l.taille or '–' }} mm</td><td>{{ l.tail or '–' }} mm</td><td>{{ l.radius or '–' }} m</td><td>{% if l.gewicht %}{{ l.gewicht }} g{% else %}–{% endif %}</td></tr>{% endfor %}</table></div>
+{% if s.eerder %}<h2>Eerdere seizoenen</h2><p>{% for e in s.eerder %}<span class="chip">{{ e.seizoen }}</span>{% endfor %}</p>{% endif %}
+{% if s.lijkt %}<h2>Vergelijkbare ski's</h2><div class="grid">{% for s in s.lijkt %}{% include "_kaart.html" %}{% endfor %}</div>{% endif %}
 {% endblock %}

@@ -1,4 +1,7 @@
-<div class="kaart ski-kaart"><h3><a href="{{ BASE }}/{{ s.slug }}/">{{ s.naam }}</a></h3>
-<div class="meta">{{ s.seizoen }} · taille {{ s.taille }} mm · {{ s.niveau_nl }}{% if s.geslacht=='dames' %} · dames{% endif %}</div>
-{% for k,label,v in s.scores %}<div class="as"><span>{{ label }}</span><div class="bar"><i style="width:{{ (v or 0)*10 }}%"></i></div><b>{{ v }}</b></div>{% endfor %}
-</div>
+<article class="kaart">{% if s.review %}<span class="badge">Uitgebreide review</span>{% endif %}
+<h3><a href="{{ BASE }}/{{ s.slug }}/">{{ s.naam }}</a></h3>
+<div class="meta">{{ s.taille }} mm · {{ s.niveau_nl }}{% if s.geslacht=='dames' %} · dames{% endif %}</div>
+<p class="kort">{% if s.review %}{{ s.review.kort }}{% else %}{{ s.auto }}{% endif %}</p>
+<div class="mini" title="Scores: grip, wendbaar, stabiel, poeder, speels, vergevingsgezind, licht">{% for k,label,v,w in s.scores %}<span><i style="height:{{ v*10 }}%"></i></span>{% endfor %}</div>
+<div class="mini-leg"><span>grip</span><span>wend</span><span>stab</span><span>poed</span><span>spel</span><span>verg</span><span>licht</span></div>
+</article>

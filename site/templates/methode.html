@@ -1,7 +1,11 @@
 {% extends "base.html" %}{% block inhoud %}
-<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › Methode</nav><h1>Zo beoordelen wij ski's</h1>
-<p>Elke ski krijgt een score van 1 tot 10 op zeven punten. De basis zijn harde specificaties: taillebreedte, draaistraal, constructie (bijvoorbeeld metaal in de ski), profiel (camber/rocker), het niveau waarvoor de fabrikant de ski bedoelt en het gewicht.</p>
-<ul>{% for k,label in ASSEN %}<li><b>{{ label }}</b></li>{% endfor %}</ul>
-<p>Voorbeeld: een smalle ski met metaal en camber scoort hoger op grip op een harde piste; een brede ski met rocker scoort hoger op drijfvermogen in poeder. In een volgende versie corrigeren we de scores met testoordelen en ervaringen van lezers.</p>
-<p class="meta">Status: concept (v0.1). Formules staan in de code (model/scores.py).</p>
+<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › Zo testen wij</nav>
+<h1>Zo testen en beoordelen wij ski's</h1>
+<p class="lead">Geen marketingpraat, maar harde gegevens en eerlijk samengevatte ervaringen. Zo komen onze oordelen tot stand.</p>
+<h2>1. De specificaties</h2><p class="verhaal">Van elke ski verzamelen we per lengte de breedte van tip, taille en staart, de draaistraal en, als bekend, het gewicht. Daarnaast het profiel (camber en rocker), de constructie (bijvoorbeeld metaal of carbon) en het niveau waarvoor de fabrikant de ski bedoelt.</p>
+<h2>2. Zeven scores</h2><p class="verhaal">Uit die gegevens berekenen we zeven scores. Een smalle ski met metaal en camber pakt beter op een harde piste; een brede ski met rocker drijft beter in poeder; een lichte ski zonder metaal is speelser en vergevingsgezinder. We vergelijken elke ski met alle andere ski's in dezelfde categorie en hetzelfde seizoen: een 9 betekent dat hij op dat punt bij de besten hoort.</p>
+<ul>{% for k,label in ASSEN %}<li>{{ label }}</li>{% endfor %}</ul>
+<h2>3. Wat testers zeggen</h2><p class="verhaal">Voor onze uitgebreide reviews lezen we de belangrijke internationale ski-tests en vatten we samen wat zij vinden, in onze eigen woorden en met hun naam erbij. Waar tests elkaar tegenspreken, zeggen we dat.</p>
+<h2>4. Ons oordeel</h2><p class="verhaal">Tot slot geven we ons eigen oordeel: voor wie is deze ski, en voor wie niet? Dat oordeel is van onze redactie. Winkels of merken betalen niet voor een plek of een score.</p>
+<p class="bron">Scoremodel versie 0.2 · elk seizoen opnieuw berekend.</p>
 {% endblock %}

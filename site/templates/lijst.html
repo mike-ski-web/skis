@@ -1,4 +1,19 @@
 {% extends "base.html" %}{% block inhoud %}
-<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › {{ titel }}</nav><h1>{{ titel }}</h1><p>{{ intro }}</p>
-<div class="grid">{% for s in ski %}{% include "_kaart.html" %}{% endfor %}</div>
+<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › {{ titel }}</nav>
+<h1>{{ titel }}</h1><p class="lead">{{ intro }}</p>
+<div class="filters">
+<label>Niveau<select id="fniv"><option value="">Alle</option><option value="Beginner">Beginner/gemiddeld</option><option value="Intermediate">Gemiddeld/gevorderd</option><option value="Expert">Gevorderd/expert</option></select></label>
+<label>Breedte<select id="fbr"><option value="">Alle</option><option value="0-87">Smal (tot 88 mm)</option><option value="88-99">Midden (88–99 mm)</option><option value="100-200">Breed (100 mm+)</option></select></label>
+<label>Voor<select id="fg"><option value="">Iedereen</option><option value="dames">Damesmodellen</option><option value="unisex">Unisex/heren</option></select></label>
+<label>Sorteer<select id="fs"><option value="std">Aanbevolen</option><option value="naam">Naam</option><option value="grip">Grip</option><option value="speelsheid">Speelsheid</option><option value="drijfvermogen">Poeder</option><option value="vergevingsgezind">Vergevingsgezind</option></select></label>
+<span class="meta" id="aantal"></span></div>
+<div class="grid" id="lijst">{% for s in ski %}<div data-i="{{ loop.index0 }}">{% include "_kaart.html" %}</div>{% endfor %}</div>
+<script>
+const D={{ data|tojson_nl|safe }};const $=id=>document.getElementById(id);const box=$('lijst');const els=[...box.children];
+function f(){const n=$('fniv').value,b=$('fbr').value,g=$('fg').value,s=$('fs').value;let [lo,hi]=b?b.split('-').map(Number):[0,999];
+ let idx=D.map((d,i)=>i).filter(i=>{const d=D[i];return(!n||d.niv.includes(n))&&d.t>=lo&&d.t<=hi&&(!g||d.g==g)});
+ if(s=='naam')idx.sort((a,c)=>D[a].n.localeCompare(D[c].n));else if(s!='std')idx.sort((a,c)=>D[c][s]-D[a][s]);
+ els.forEach(e=>e.style.display='none');idx.forEach(i=>{els[i].style.display='';box.appendChild(els[i])});$('aantal').textContent=idx.length+' ski\'s';}
+document.querySelectorAll('.filters select').forEach(e=>e.onchange=f);f();
+</script>
 {% endblock %}

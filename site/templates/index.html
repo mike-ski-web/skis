@@ -1,23 +1,28 @@
 {% extends "base.html" %}{% block inhoud %}
-<h1>Ski-test 2026/27</h1><p>Vind de ski die bij jou past. We beoordelen elke ski op zeven punten, met een methode die we <a href="{{ BASE }}/methode/">openbaar maken</a>.</p>
+<span class="label">Ski-test {{ SEIZOEN }}</span>
+<h1>Vind de ski die bij je past</h1>
+<p class="lead">Wij zetten alle ski's van dit seizoen op een rij: met de echte specificaties, wat internationale testers ervan vinden en ons eigen oordeel. Eerlijk, onafhankelijk en elk jaar bijgewerkt.</p>
+<div class="stats"><div><b>{{ ski|length }}</b>ski's</div><div><b>{{ merken|length }}</b>merken</div><div><b>{{ uitgelicht|length }}</b>uitgebreide reviews</div></div>
 <h2>Skifinder</h2>
-<div class="kaart"><div class="finder">
-<label>Jouw niveau<select id="niv"><option value="">Alle</option><option value="Beginner">Beginner / gemiddeld</option><option value="Intermediate">Gemiddeld / gevorderd</option><option value="Expert">Gevorderd / expert</option></select></label>
-<label>Waar ski je het meest?<select id="ter"><option value="mix">Afwisselend</option><option value="piste">Vooral op de piste</option><option value="poeder">Veel naast de piste</option></select></label>
-<label>Hoe ski je?<select id="stijl"><option value="rustig">Rustig en ontspannen</option><option value="speels">Speels</option><option value="snel">Snel en strak</option></select></label>
-<label>Ski voor<select id="gesl"><option value="">Iedereen</option><option value="dames">Dames</option></select></label>
+<div class="finder"><div class="vragen">
+<label>Wat is je niveau?<select id="niv"><option value="">Maakt niet uit</option><option value="Beginner">Beginner of gemiddeld</option><option value="Intermediate">Gemiddeld of gevorderd</option><option value="Expert">Gevorderd of expert</option></select></label>
+<label>Waar ski je het liefst?<select id="ter"><option value="mix">Op en naast de piste</option><option value="piste">Vooral op de piste</option><option value="poeder">Zoveel mogelijk in de poeder</option></select></label>
+<label>Hoe ski je?<select id="stijl"><option value="rustig">Rustig en ontspannen</option><option value="speels">Speels, met sprongetjes</option><option value="snel">Snel en strak</option></select></label>
+<label>Voor wie?<select id="gesl"><option value="">Iedereen</option><option value="dames">Damesmodel</option></select></label>
 </div><div id="uitslag" class="grid"></div></div>
-<h2>Categorieën</h2><p><a href="{{ BASE }}/allmountain/">Allmountain-ski's 2026/27</a></p>
-<h2>Merken</h2><p>{% for m in merken %}<a class="tag" href="{{ BASE }}/{{ m|lower|replace('ö','o')|replace(' ','-') }}/">{{ m }}</a> {% endfor %}</p>
+{% if uitgelicht %}<h2>Uitgebreid getest</h2><div class="grid">{% for s in uitgelicht %}{% include "_kaart.html" %}{% endfor %}</div>{% endif %}
+<h2>Per categorie</h2><div class="grid">{% for c,(cn,intro) in CAT.items() %}<article class="kaart"><h3><a href="{{ BASE }}/{{ c }}/">{{ cn }}</a></h3><p class="kort">{{ intro }}</p></article>{% endfor %}</div>
+<h2>Per merk</h2><p>{% for m,ms in merken %}<a class="chip" href="{{ BASE }}/{{ ms }}/">{{ m }}</a>{% endfor %}</p>
+<h2>Zo testen wij</h2><p class="verhaal">Elke ski krijgt een score op zeven punten, berekend uit de specificaties en vergeleken met alle andere ski's in dezelfde categorie. Daarnaast lezen we alle grote internationale tests en vatten we samen wat die vinden. <a href="{{ BASE }}/methode/">Lees hoe het werkt</a>.</p>
 <script>
-const SKI={{ finder|safe }};
-const W={piste:{grip:3,stabiliteit:1,drijfvermogen:-1},mix:{grip:1,drijfvermogen:1,wendbaarheid:1},poeder:{drijfvermogen:3,grip:-1},
- rustig:{vergevingsgezind:2,wendbaarheid:1},speels:{speelsheid:3,wendbaarheid:1},snel:{stabiliteit:3,grip:1,vergevingsgezind:-1}};
-function upd(){const niv=document.getElementById('niv').value,ter=document.getElementById('ter').value,st=document.getElementById('stijl').value,g=document.getElementById('gesl').value;
- let l=SKI.filter(s=>(!niv||s.niv.includes(niv))&&(!g||s.g==g));
- l.forEach(s=>{s.sc=0;[W[ter],W[st]].forEach(w=>{for(const k in w)s.sc+=w[k]*(s[k]||0)})});
+const SKI={{ finder|tojson_nl|safe }};
+const W={piste:{grip:3,stabiliteit:1,drijfvermogen:-1},mix:{grip:1,drijfvermogen:1,wendbaarheid:1,stabiliteit:1},poeder:{drijfvermogen:3,speelsheid:1,grip:-1},
+ rustig:{vergevingsgezind:2,wendbaarheid:1,gewicht:1},speels:{speelsheid:3,wendbaarheid:1},snel:{stabiliteit:3,grip:1,vergevingsgezind:-1}};
+const $=id=>document.getElementById(id);
+function upd(){const niv=$('niv').value,g=$('gesl').value;let l=SKI.filter(s=>(!niv||s.niv.includes(niv))&&(!g||s.g==g));
+ l.forEach(s=>{s.sc=0;[W[$('ter').value],W[$('stijl').value]].forEach(w=>{for(const k in w)s.sc+=w[k]*s[k]});s.sc+=s.r?2:0});
  l.sort((a,b)=>b.sc-a.sc);
- document.getElementById('uitslag').innerHTML=l.slice(0,6).map((s,i)=>`<div class="kaart ski-kaart"><h3><a href="${s.u}">${i+1}. ${s.n}</a></h3><div class="meta">taille ${s.t} mm</div></div>`).join('')||'<p>Geen ski gevonden met deze keuzes.</p>';}
-document.querySelectorAll('.finder select').forEach(e=>e.onchange=upd);upd();
+ $('uitslag').innerHTML=l.slice(0,6).map((s,i)=>`<article class="kaart">${s.r?'<span class="badge">Uitgebreide review</span>':''}<h3><a href="${s.u}">${i+1}. ${s.n}</a></h3><div class="meta">${s.t} mm onder de voet</div></article>`).join('')||'<p>Geen ski gevonden. Probeer een andere combinatie.</p>';}
+document.querySelectorAll('.vragen select').forEach(e=>e.onchange=upd);upd();
 </script>
 {% endblock %}
