@@ -12,7 +12,11 @@
 {% for k,label,v,w in s.scores %}<div class="as"><span>{{ label }}</span><div class="bar"><i style="width:{{ v*10 }}%"></i></div><b>{{ v }}/10<small> · {{ w }}</small></b></div>{% endfor %}
 <p class="bron">Vergeleken met alle {{ (CAT[s.categorie][0] if s.categorie in CAT else '')|lower }}-ski's van {{ s.seizoen }}. <a href="{{ BASE }}/methode/">Hoe we scoren</a></p></section>
 <section class="blok"><h2 style="margin-top:0">Kopen</h2>
-<p>Binnenkort zie je hier de actuele prijs bij verschillende winkels.</p><span class="knop uit">Bekijk prijzen</span>
+{% if s.winkels %}<div class="winkels" data-bouw="{{ BOUWDATUM }}">{% for w in s.winkels %}
+<a class="winkel" href="{{ w.link }}" rel="sponsored nofollow noopener" target="_blank"><span><b>{{ w.winkel }}</b>{% if not w.voorraad %}<small> · niet op voorraad</small>{% endif %}</span><span class="prijs">€ {{ '%.2f'|format(w.prijs)|replace('.',',') }}</span><span class="naar">Bekijk ›</span></a>{% endfor %}
+<p class="bron prijsdatum">Prijzen gecontroleerd op {{ BIJGEWERKT }}. Wij ontvangen een kleine vergoeding als je via deze links koopt; dat heeft geen invloed op onze oordelen.</p></div>
+<script>(function(){var w=document.querySelector('.winkels');if(!w)return;var d=new Date(w.dataset.bouw);if((Date.now()-d)/864e5>45){w.querySelectorAll('.prijs').forEach(function(e){e.textContent=''});w.querySelector('.prijsdatum').textContent='Bekijk de actuele prijs bij de winkel.';}})();</script>
+{% else %}<p>We hebben nog geen winkel gevonden die deze ski verkoopt.</p>{% endif %}
 <h3 style="margin-top:22px">Kenmerken</h3>
 <p style="font-size:15px"><b>Profiel:</b> {{ s.profiel_nl or '–' }}<br><b>Constructie:</b> {{ s.constructie_nl or '–' }}<br><b>Staart:</b> {{ s.tail_type_nl or '–' }}<br><b>Lengtes:</b> {{ s.lengtes|map(attribute='lengte')|join(', ') }} cm</p></section>
 </div>
@@ -21,7 +25,7 @@
 <div class="twee"><div><h3>Sterk</h3><ul class="plus">{% for x in s.review.goed %}<li>{{ x }}</li>{% endfor %}</ul></div>
 <div><h3>Minder sterk</h3><ul class="min">{% for x in s.review.minder %}<li>{{ x }}</li>{% endfor %}</ul></div></div>
 <h3 style="margin-top:24px">Voor wie?</h3><p>{{ s.review.voorwie }}</p>
-<p class="bron">Voor deze review namen we mee: {{ s.review.bronnen|join(', ') }}.</p>
+{% if s.review.status == "concept" %}<p class="bron"><b>Concept</b> – automatisch opgesteld, nog niet door de redactie gecontroleerd.</p>{% endif %}<p class="bron">Voor deze review namen we mee: {{ s.review.bronnen|join(', ') }}.</p>
 {% else %}
 <div class="blok" style="margin-top:28px"><b>Uitgebreide review volgt.</b> We verzamelen de internationale tests voor deze ski. Tot die tijd is het oordeel hierboven gebaseerd op de specificaties.</div>
 {% endif %}

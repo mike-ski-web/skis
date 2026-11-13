@@ -1,4 +1,4 @@
-<article class="kaart">{% if s.review %}<span class="badge">Uitgebreide review</span>{% endif %}
+<article class="kaart">{% if s.review %}<span class="badge">Uitgebreide review</span>{% endif %}{% if s.winkels %}<span class="meta" style="color:var(--goed);font-weight:700">Vanaf € {{ "%.0f"|format(s.winkels|map(attribute="prijs")|min) }}</span>{% endif %}
 <h3><a href="{{ BASE }}/{{ s.slug }}/">{{ s.naam }}</a></h3>
 <div class="meta">{{ s.taille }} mm · {{ s.niveau_nl }}{% if s.geslacht=='dames' %} · dames{% endif %}</div>
 <p class="kort">{% if s.review %}{{ s.review.kort }}{% else %}{{ s.auto }}{% endif %}</p>

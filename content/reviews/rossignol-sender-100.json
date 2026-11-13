@@ -1,8 +1,26 @@
-{"kort": "Een speelse freerideski die verrassend serieus kan zijn als het moet.",
- "verhaal": ["Nieuw is vooral de naam: tot vorig seizoen heette deze ski de Sender Free 100. Volgens Ski Essentials is hij verder inhoudelijk gelijk gebleven.",
+{
+ "kort": "Een speelse freerideski die verrassend serieus kan zijn als het moet.",
+ "verhaal": [
+  "Nieuw is vooral de naam: tot vorig seizoen heette deze ski de Sender Free 100. Volgens Ski Essentials is hij verder inhoudelijk gelijk gebleven.",
   "De testers van Ski Essentials noemen hem wendbaar, speels en vergevingsgezind, en ze zien hem graag in het bos, op de piste en in het park. Ze waren positief over de stabiliteit en de grip op hardgereden sneeuw, maar merkten ook dat hij bij hoge snelheid wat gaat trillen en in zware sneeuw minder stevig aanvoelt. In de langste lengte vonden ze hem wat log in bulten. Forecast Ski Test is nog enthousiaster: makkelijk te draaien, toch stabiel en krachtig, zeker bij landingen en direct leuk in poeder.",
-  "Ons oordeel: de Sender 100 is een allrounder met een speels karakter. Hij doet bijna alles goed, maar is het leukst als je de berg als speeltuin ziet. Wie vooral hard rechtdoor wil, kiest iets met metaal."],
- "goed": ["Speels en makkelijk te draaien", "Goede balans tussen drijven en grip", "Zeker bij sprongen en landingen"],
- "minder": ["Trilt wat op topsnelheid", "Minder stevig in zware, natte sneeuw"],
+  "Ons oordeel: de Sender 100 is een allrounder met een speels karakter. Hij doet bijna alles goed, maar is het leukst als je de berg als speeltuin ziet. Wie vooral hard rechtdoor wil, kiest iets met metaal."
+ ],
+ "goed": [
+  "Speels en makkelijk te draaien",
+  "Goede balans tussen drijven en grip",
+  "Zeker bij sprongen en landingen"
+ ],
+ "minder": [
+  "Trilt wat op topsnelheid",
+  "Minder stevig in zware, natte sneeuw"
+ ],
  "voorwie": "Gevorderde skiërs met een speelse stijl. Ook een aanrader voor lichtere skiërs die toch stevig willen skiën.",
- "bronnen": ["Ski Essentials (test 2026/27)", "Forecast Ski Test", "Specificaties fabrikant"]}
+ "bronnen": [
+  "Ski Essentials (test 2026/27)",
+  "Forecast Ski Test",
+  "Specificaties fabrikant"
+ ],
+ "status": "goedgekeurd",
+ "seizoen": "2026/27",
+ "door": "redactie"
+}

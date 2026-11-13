@@ -65,6 +65,9 @@ def laden():
         huidig = versies[0]
         s = dict(huidig); s["slug"] = key; s["merk_slug"] = slug(s["merk"]); s["naam"] = f'{s["merk"]} {s["model"]}'
         s["eerder"] = versies[1:]; s["svg"] = silhouet(s["ref"])
+        cur.execute("""SELECT a.winkel, a.prijs, a.op_voorraad, a.deeplink FROM aanbieding a JOIN ski x ON x.id=a.ski_id JOIN merk m ON m.id=x.merk_id
+                       WHERE m.naam=%s AND x.model=%s AND a.deeplink IS NOT NULL ORDER BY a.op_voorraad DESC, a.prijs""", (s["merk"], s["model"]))
+        s["winkels"] = [dict(winkel=w, prijs=p, voorraad=v, link=l) for w, p, v, l in cur.fetchall()]
         p = os.path.join(REVIEWS, key + ".json")
         s["review"] = json.load(open(p)) if os.path.exists(p) else None
         if not s["review"]:
@@ -84,12 +87,12 @@ def main(out):
     ski = laden(); merken = sorted({(s["merk"], s["merk_slug"]) for s in ski})
     seizoen = max(s["seizoen"] for s in ski)
     nu = datetime.date.today().strftime("%d-%m-%Y")
-    g = dict(BASE=BASE, ASSEN=ASSEN, SEIZOEN=seizoen, BIJGEWERKT=nu, CAT=CAT)
+    g = dict(BOUWDATUM=datetime.date.today().isoformat(), LIVE=bool(os.environ.get("SKIDATA_LIVE")), BASE=BASE, ASSEN=ASSEN, SEIZOEN=seizoen, BIJGEWERKT=nu, CAT=CAT)
     def schrijf(pad, tpl, **kw):
         p = os.path.join(out, pad.strip("/"), "index.html"); os.makedirs(os.path.dirname(p), exist_ok=True)
         open(p, "w").write(env.get_template(tpl).render(**g, **kw))
     def mini(s): return dict(n=s["naam"], u=f'{BASE}/{s["slug"]}/', t=s["taille"], niv=s["niveau"] or "", g=s["geslacht"],
-                             r=bool(s["review"]), tot=s["totaal"], **{k: s[k] or 0 for k,_ in ASSEN})
+                             r=bool(s["review"]), p=bool(s["winkels"]), tot=s["totaal"], **{k: s[k] or 0 for k,_ in ASSEN})
     schrijf(BASE, "index.html", ski=ski, merken=merken, finder=[mini(s) for s in ski],
             uitgelicht=[s for s in ski if s["review"]], titel=f"Ski-test {seizoen}: vind de ski die bij je past")
     schrijf(f"{BASE}/methode", "methode.html", titel="Zo testen en beoordelen wij ski's")

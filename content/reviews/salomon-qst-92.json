@@ -1,8 +1,27 @@
-{"kort": "Een toegankelijke allmountain-ski voor wie vooral op de piste skiet en af en toe ernaast wil.",
- "verhaal": ["Let op: Salomon heeft de QST-lijn voor 2026/27 vernieuwd. De testoordelen die we hieronder meenemen, gaan over de vorige generatie. Zodra er tests van de nieuwe versie zijn, werken we dit bij. Evo plaatst de nieuwe QST 92 duidelijk bij beginners tot gemiddelde skiërs.",
+{
+ "kort": "Een toegankelijke allmountain-ski voor wie vooral op de piste skiet en af en toe ernaast wil.",
+ "verhaal": [
+  "Let op: Salomon heeft de QST-lijn voor 2026/27 vernieuwd. De testoordelen die we hieronder meenemen, gaan over de vorige generatie. Zodra er tests van de nieuwe versie zijn, werken we dit bij. Evo plaatst de nieuwe QST 92 duidelijk bij beginners tot gemiddelde skiërs.",
   "OutdoorGearLab was over de vorige QST 92 positief over het carven en over hoe hij omgaat met ruwe en natte voorjaarssneeuw. Hij wisselt makkelijk van kant en gaat soepel de bocht in. Op hoge snelheid in lange bochten op harde sneeuw werd hij wat onrustig, en in diepe poeder zakte hij weg, waarbij de punt de sneeuw in duikt.",
-  "Ons oordeel: de QST 92 is geen ski om records mee te breken, maar een fijne, vergevingsgezinde ski voor wie wil groeien. Op een gewone wintersportweek, met pistes in de ochtend en zachte sneeuw in de middag, doet hij precies wat je wilt."],
- "goed": ["Makkelijk en vergevingsgezind", "Snel van kant te wisselen", "Prettig in zachte voorjaarssneeuw"],
- "minder": ["Niet gemaakt voor diepe poeder", "Onrustig op topsnelheid", "Tests gaan nog over de vorige versie"],
+  "Ons oordeel: de QST 92 is geen ski om records mee te breken, maar een fijne, vergevingsgezinde ski voor wie wil groeien. Op een gewone wintersportweek, met pistes in de ochtend en zachte sneeuw in de middag, doet hij precies wat je wilt."
+ ],
+ "goed": [
+  "Makkelijk en vergevingsgezind",
+  "Snel van kant te wisselen",
+  "Prettig in zachte voorjaarssneeuw"
+ ],
+ "minder": [
+  "Niet gemaakt voor diepe poeder",
+  "Onrustig op topsnelheid",
+  "Tests gaan nog over de vorige versie"
+ ],
  "voorwie": "Beginners die doorgroeien en gemiddelde skiërs die vooral op de piste zijn.",
- "bronnen": ["OutdoorGearLab (vorige versie)", "evo", "Specificaties fabrikant"]}
+ "bronnen": [
+  "OutdoorGearLab (vorige versie)",
+  "evo",
+  "Specificaties fabrikant"
+ ],
+ "status": "goedgekeurd",
+ "seizoen": "2026/27",
+ "door": "redactie"
+}

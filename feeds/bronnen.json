@@ -1,0 +1,5 @@
+{"daisycon": {"media_id_env": "SKIDATA_DAISYCON_MEDIA",
+  "feeds": [
+   {"winkel": "Daka", "land": "NL", "program_id": 7290, "standard_id": 7},
+   {"winkel": "Jumbo Sports", "land": "NL", "program_id": 3672, "standard_id": 1}
+  ]}}

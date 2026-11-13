@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>{{ titel }} | Skiinformatie.nl</title>
+{% if not LIVE %}<meta name="robots" content="noindex,nofollow">{% endif %}<title>{{ titel }} | Skiinformatie.nl</title>
 {% block meta %}{% endblock %}
 <style>
 :root{--rood:#cc012b;--rood2:#ee2b53;--zwart:#202020;--grijs:#69727d;--licht:#f4f5f7;--rand:#e3e6ea;--goed:#1f8a4c}
@@ -48,9 +48,10 @@ select{padding:10px;border:1px solid #c9ced5;border-radius:8px;font-size:16px;ba
 .stats{display:flex;gap:28px;flex-wrap:wrap;margin:18px 0 6px}.stats div{font-size:14px;color:var(--grijs)}.stats b{display:block;font-size:28px;color:var(--zwart)}
 .filters{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 20px;align-items:flex-end}.filters label{font-size:13px;font-weight:700;display:flex;flex-direction:column;gap:4px}
 .verhaal p{max-width:760px}.bron{font-size:14px;color:var(--grijs)}
+.winkel{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;background:#fff;border:1px solid var(--rand);border-radius:10px;padding:12px 14px;margin-bottom:8px;color:var(--zwart)}.winkel:hover{border-color:var(--rood);text-decoration:none}.winkel .prijs{font-weight:800;font-size:18px}.winkel .naar{color:var(--rood);font-weight:700}.winkel small{color:var(--grijs)}
 footer.site{border-top:1px solid var(--rand);padding:28px 20px;font-size:14px;color:var(--grijs);text-align:center}
 </style></head><body>
-<div class="testbalk">Testversie – niet openbaar · data bijgewerkt {{ BIJGEWERKT }}</div>
+{% if not LIVE %}<div class="testbalk">Testversie – niet openbaar · data bijgewerkt {{ BIJGEWERKT }}</div>{% endif %}
 <header class="site"><div class="in"><a href="{{ BASE }}/"><img src="{{ BASE }}/assets/logo.png" alt="Skiinformatie.nl" width="102" height="44"></a>
 <nav><a href="{{ BASE }}/" class="actief">Ski-test</a><a href="{{ BASE }}/allmountain/">Allmountain</a><a href="{{ BASE }}/methode/">Zo testen wij</a></nav></div></header>
 <main>{% block inhoud %}{% endblock %}</main>
