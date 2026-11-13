@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block inhoud %}
+<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › Methode</nav><h1>Zo beoordelen wij ski's</h1>
+<p>Elke ski krijgt een score van 1 tot 10 op zeven punten. De basis zijn harde specificaties: taillebreedte, draaistraal, constructie (bijvoorbeeld metaal in de ski), profiel (camber/rocker), het niveau waarvoor de fabrikant de ski bedoelt en het gewicht.</p>
+<ul>{% for k,label in ASSEN %}<li><b>{{ label }}</b></li>{% endfor %}</ul>
+<p>Voorbeeld: een smalle ski met metaal en camber scoort hoger op grip op een harde piste; een brede ski met rocker scoort hoger op drijfvermogen in poeder. In een volgende versie corrigeren we de scores met testoordelen en ervaringen van lezers.</p>
+<p class="meta">Status: concept (v0.1). Formules staan in de code (model/scores.py).</p>
+{% endblock %}

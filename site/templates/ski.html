@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block inhoud %}
+<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › <a href="{{ BASE }}/{{ s.merk_slug }}/">{{ s.merk }}</a> › {{ s.model }}</nav>
+<h1>{{ s.naam }} <span class="meta">({{ s.seizoen }})</span></h1>
+<p><span class="tag">Allmountain</span><span class="tag">{{ s.niveau_nl }}</span>{% if s.geslacht=='dames' %}<span class="tag">Dames</span>{% endif %}</p>
+<div class="grid"><div class="kaart"><h2 style="margin-top:0">Onze beoordeling</h2>
+{% for k,label,v in s.scores %}<div class="as"><span>{{ label }}</span><div class="bar"><i style="width:{{ (v or 0)*10 }}%"></i></div><b>{{ v }}</b></div>{% endfor %}
+<p class="meta">Scoremodel {{ s.versie }} · <a href="{{ BASE }}/methode/">uitleg</a></p></div>
+<div class="kaart"><h2 style="margin-top:0">Kenmerken</h2>
+<p><b>Profiel:</b> {{ s.profiel_nl or '–' }}<br><b>Constructie:</b> {{ s.constructie_nl or '–' }}<br><b>Staart:</b> {{ s.tail_type_nl or '–' }}</p>
+<h3>Prijzen</h3><p class="meta">Hier komen straks prijzen van meerdere winkels (via Awin, Daisycon en TradeTracker).</p><span class="knop uit">Bekijk prijzen</span></div></div>
+<h2>Specificaties per lengte</h2>
+<table><tr><th>Lengte</th><th>Tip</th><th>Taille</th><th>Tail</th><th>Radius</th><th>Gewicht (per ski)</th></tr>
+{% for l in s.lengtes %}<tr><td>{{ l.lengte }} cm</td><td>{{ l.tip or '–' }} mm</td><td>{{ l.taille or '–' }} mm</td><td>{{ l.tail or '–' }} mm</td><td>{{ l.radius or '–' }} m</td><td>{% if l.gewicht %}{{ l.gewicht }} g{% else %}–{% endif %}</td></tr>{% endfor %}</table>
+{% endblock %}

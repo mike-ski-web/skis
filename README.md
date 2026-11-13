@@ -22,3 +22,11 @@ Eén veld `seizoen` (bv. `2026/27`). Retail "2027" = 2026/27.
 
 ## Server
 DigitalOcean droplet `skidata` (Ubuntu 24.04), code in `/opt/skidata/app`, venv in `/opt/skidata/venv`.
+
+## Testversie (niet openbaar)
+- `https://skitest.64-227-64-143.sslip.io/ski-test/` – afgeschermd met wachtwoord, `noindex` + `robots.txt Disallow`.
+- Bijwerken: `./deploy.sh` op de droplet (git pull → scores → pagina's bouwen).
+- Alles staat onder `/ski-test/`: live zetten = deze map op Skiinformatie tonen; uitzetten = één regel voor `/ski-test/*`.
+
+## Data verversen
+`python scrapers/evo.py scrapers/lijsten/allmountain-2026-27.txt allmountain`

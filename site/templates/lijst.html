@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block inhoud %}
+<nav class="kruim"><a href="{{ BASE }}/">Ski-test</a> › {{ titel }}</nav><h1>{{ titel }}</h1><p>{{ intro }}</p>
+<div class="grid">{% for s in ski %}{% include "_kaart.html" %}{% endfor %}</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+<div class="kaart ski-kaart"><h3><a href="{{ BASE }}/{{ s.slug }}/">{{ s.naam }}</a></h3>
+<div class="meta">{{ s.seizoen }} · taille {{ s.taille }} mm · {{ s.niveau_nl }}{% if s.geslacht=='dames' %} · dames{% endif %}</div>
+{% for k,label,v in s.scores %}<div class="as"><span>{{ label }}</span><div class="bar"><i style="width:{{ (v or 0)*10 }}%"></i></div><b>{{ v }}</b></div>{% endfor %}
+</div>

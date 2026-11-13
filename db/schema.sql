@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS ski (
   niveau TEXT,                         -- beginner, gevorderd, expert
   profiel TEXT,                        -- bv. 'rocker-camber-rocker'
   constructie TEXT,                    -- bv. 'houtkern, titanal'
+  tail_type TEXT,                      -- bv. 'partial twin tip'
   bron_url TEXT,
   bijgewerkt TIMESTAMPTZ DEFAULT now(),
   UNIQUE (merk_id, model, seizoen)
